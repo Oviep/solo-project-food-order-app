@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Font Style Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Smythe&family=Source+Sans+Pro:ital,wght@1,900&display=swap" rel="stylesheet">
+
+<!-- Font Awesome Link -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/fontawesome.min.css" integrity="sha512-cHxvm20nkjOUySu7jdwiUxgGy11vuVPE9YeK89geLMLMMEOcKFyS2i+8wo0FOwyQO/bL8Bvq1KMsqK4bbOsPnA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+     
+<!-- Title of Application -->
+    <title>Food Order App</title>
+
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-text">
+      <h1>Ovie's Diner</h1>
+      <h2>The best burgers and pizzas in town</h2>
+    </div>
+  </header>
+
+    <main class="body-container">
+      <section class="order-list" div="order-list">
+        <div class="emoji">🍕</div>
+
+        <div class="order-content">
+          <h1 class="order-name">Pizza</h1>
+          <p><span>pepperoni, mushroom, mozarella </span> </p>
+          <p>$14</p>
+        </div>
+        <div class="icon-btn">
+          +
+        </div>
+     </section>
+
+      <section class="orders-made-container" id="orders-made-container">
+        <h1 class="order-title">Your Order</h1>
+        <div class="orders-made">
+          <p> <span class="order">Pizza</span> </p>
+          <p id="delete-btn"> <span class="delete-btn">remove</span> </p>
+          <p class="order-price">$14</p>
+        </div>
+        <div class="order-total-price">
+          <p>Total price</p>
+          <p class="total-price">$26</p>
+           
+        </div>
+        <div class="complete-order-btn">
+              <button class="order-btn" id="order-btn">Complete Order</button>
+        </div>
+      
+       
+
+      </section>
+
+      <form action="" class="payment-form" id="payment-form">
+        <p class="form-title">Enter Card Details</p>
+        <input type="text" placeholder="Enter your Name" class="form-input" required> 
+         <input type="text" placeholder="Enter cardnumber" class="form-input" required>
+          <input type="text" placeholder="Enter CVV" class="form-input" required>
+          <button class="pay-btn">Pay</button>
+      </form>
+
+    </main>
+
+    <script src="index.js" type="module"></script>
+</body>
+</html>
