@@ -4,48 +4,41 @@ import { menuArray } from "./data.js";
 const menuItems = document.querySelector("#order-list");
 const ordersPlacedContainer = document.querySelector("#orders-made-container");
 const ordersMade = document.querySelector("#orders-made");
-const orderBtn = document.querySelector("#order-btn")
-const paymentForm = document.querySelector('#payment-form')
-const payBtn = document.querySelector("#pay-btn")
+const orderBtn = document.querySelector("#order-btn");
+const paymentForm = document.querySelector("#payment-form");
+const payBtn = document.querySelector("#pay-btn");
 // let foodOrders = ``;
 let selectedProducts = [];
-let allOrders = menuArray
+let allOrders = menuArray;
 
-orderBtn.addEventListener('click', function(){
-  paymentForm.style.display = 'flex'
-})
+orderBtn.addEventListener("click", function () {
+  paymentForm.style.display = "flex";
+});
 
-paymentForm.addEventListener('submit', function(e){
-  e.preventDefault()
-  
+paymentForm.addEventListener("submit", function (e) {
+  e.preventDefault();
 
-    const paymentFormData = new FormData(paymentForm);
-    const firstName = paymentFormData.get("fullName");
-   
+  const paymentFormData = new FormData(paymentForm);
+  const firstName = paymentFormData.get("fullName");
 
   let thankYouMessage = `<div class="order-conclusion-message" id="order-conclusion-message">
         <p class="message-text">Thanks for coming ${firstName}. Your order is on the way!</p>
       </div>`;
-  
-     
-      ordersPlacedContainer.style.display = "block";
-      paymentForm.style.display = 'none'
-      ordersPlacedContainer.innerHTML = thankYouMessage
-       const orderMessage = document.querySelector(
-              "#order-conclusion-message"
-            );
-            orderMessage.style.display = "block";
-})
 
+  ordersPlacedContainer.style.display = "block";
+  paymentForm.style.display = "none";
+  ordersPlacedContainer.innerHTML = thankYouMessage;
+  const orderMessage = document.querySelector("#order-conclusion-message");
+  orderMessage.style.display = "block";
+});
 
 document.addEventListener("click", function (e) {
   if (e.target.dataset.choiceBtn) {
     getOrders(e.target.dataset.choiceBtn);
-  } else if(e.target.dataset.deleteBtn){
-      handleDeleteBtn(e.target.dataset.deleteBtn)
+  } else if (e.target.dataset.deleteBtn) {
+    handleDeleteBtn(e.target.dataset.deleteBtn);
   }
 });
-
 
 // function getOrders(menuid) {
 //   //let foodOrders = ``;
@@ -108,21 +101,20 @@ document.addEventListener("click", function (e) {
 // }
 
 function getOrders(menuID) {
-
   const menuObject = allOrders.filter(function (menu) {
     return menu.id == menuID;
   })[0];
 
-  renderOrders(menuObject)
+  renderOrders(menuObject);
   return menuObject;
 }
 
 function handleDeleteBtn(deleteID) {
-     allOrders = allOrders.filter(function(menu){
-      return menu.id !== deleteID
-    })
-    
-  
+  // allOrders = allOrders.filter(function (menu) {
+  //   return menu.id !== deleteID;
+  // });
+  // selectedProducts = selectedProducts.filter((item) => item.id !== deleteID);
+  renderOrders(parseInt(deleteID), true);
 }
 
 function getMenuItems() {
@@ -145,16 +137,19 @@ function getMenuItems() {
   return menuItemsList;
 }
 
-function renderOrders(ID) {
+function renderOrders(ID, remove = false) {
+  let orderItems = ``;
+  let totalPriceElement = document.getElementsByClassName("total-price")[0];
+  let sum = 0;
+  if (!remove) {
+    selectedProducts.push(ID);
+  } else {
+    selectedProducts = selectedProducts.filter((order) => order.id !== ID);
+  }
 
-    let orderItems = ``;
-    let totalPriceElement = document.getElementsByClassName("total-price")[0];
-    let sum = 0;
-   selectedProducts.push(ID);
-
-   selectedProducts.forEach(function (order) {
-     sum += order.price;
-     orderItems += `
+  selectedProducts.forEach(function (order) {
+    sum += order.price;
+    orderItems += `
             <div style="display:flex; gap: 25px; border-bottom: 1px solid black">
              <p> <span class="order">${order.name}</span> </p>
             <p id="delete-btn"> <span class="delete-btn" data-delete-btn="${order.id}"> remove</span> </p>
@@ -165,13 +160,12 @@ function renderOrders(ID) {
             
       
     `;
-   });
+  });
 
-   ordersMade.style.display = "flex";
-   ordersMade.innerHTML = orderItems;
-   totalPriceElement.innerHTML = "$" + sum;
-   ordersPlacedContainer.style.display = "block";
-    
+  ordersMade.style.display = "flex";
+  ordersMade.innerHTML = orderItems;
+  totalPriceElement.innerHTML = "$" + sum;
+  ordersPlacedContainer.style.display = "block";
 }
 
 // function getOrderItems(){
@@ -202,6 +196,5 @@ function renderOrders(ID) {
 
 function render() {
   menuItems.innerHTML = getMenuItems();
-
- }
+}
 render();
